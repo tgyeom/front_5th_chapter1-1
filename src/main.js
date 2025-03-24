@@ -1,7 +1,7 @@
 import MainPage from "./pages/main";
 import ProfilePage from "./pages/profile";
 import LoginPage from "./pages/login";
-import ErrorPage from "./pages/error";
+import NotFoundPage from "./pages/not-found";
 import userStorage from "./userStorage";
 
 const routes = () => {
@@ -59,7 +59,7 @@ document.addEventListener("click", (e) => {
 
 const render = () => {
   const path = location.pathname;
-  const page = routes()[path] || ErrorPage;
+  const page = routes()[path] || NotFoundPage;
   document.body.innerHTML = page();
 }
 
