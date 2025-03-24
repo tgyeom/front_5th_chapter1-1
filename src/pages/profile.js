@@ -31,7 +31,7 @@ const ProfilePage = () => {
                     type="email"
                     id="email"
                     name="email"
-                    value="${user.email || "a@a.aa"}"
+                    value="${user.email || ""}"
                     class="w-full p-2 border rounded"
                   />
                 </div>

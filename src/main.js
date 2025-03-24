@@ -22,8 +22,9 @@ const navigate = (path) => {
 document.addEventListener("submit", (e) => {
   if (e.target.id === "login-form") {
     e.preventDefault();
-    const id = document.querySelector('input[type="text"]');
-    localStorage.setItem("user", JSON.stringify({ username: id.value }));
+    const userValue = document.getElementById('username')
+    const data = { username: userValue.value, email: "", bio: "" }
+    userStorage().set(data)
     navigate("/");
     return;
   }
@@ -35,7 +36,8 @@ document.addEventListener("submit", (e) => {
       email: document.getElementById("email").value,
       bio: document.getElementById("bio").value,
     };
-    localStorage.setItem("user", JSON.stringify(userData));
+    userStorage().set(userData)
+
   }
 });
 
@@ -60,7 +62,8 @@ document.addEventListener("click", (e) => {
 const render = () => {
   const path = location.pathname;
   const page = routes()[path] || NotFoundPage;
-  document.body.innerHTML = page();
+
+  document.getElementById("root").innerHTML = page();
 }
 
 window.addEventListener("popstate", render);
