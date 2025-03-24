@@ -2,12 +2,17 @@ import MainPage from "./pages/main";
 import ProfilePage from "./pages/profile";
 import LoginPage from "./pages/login";
 import ErrorPage from "./pages/error";
+import userStorage from "./userStorage";
 
-const routes = {
-  "/": MainPage,
-  "/login": LoginPage,
-  "/profile": ProfilePage,
-};
+const routes = () => {
+  const { get } = userStorage()
+  const user = get()
+  return {
+    "/": MainPage,
+    "/login": LoginPage,
+    "/profile": user.username ? ProfilePage : LoginPage
+  }
+}
 
 const navigate = (path) => {
   history.pushState(null, null, path);
@@ -54,7 +59,7 @@ document.addEventListener("click", (e) => {
 
 const render = () => {
   const path = location.pathname;
-  const page = routes[path] || ErrorPage;
+  const page = routes()[path] || ErrorPage;
   document.body.innerHTML = page();
 }
 
