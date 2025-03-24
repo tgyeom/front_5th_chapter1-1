@@ -9,7 +9,7 @@ const routes = () => {
   const user = get()
   return {
     "/": MainPage,
-    "/login": LoginPage,
+    "/login": user.username ? MainPage : LoginPage,
     "/profile": user.username ? ProfilePage : LoginPage
   }
 }
