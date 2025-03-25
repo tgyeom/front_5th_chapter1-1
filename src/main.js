@@ -1,16 +1,14 @@
-import MainPage from "./pages/main";
-import ProfilePage from "./pages/profile";
-import LoginPage from "./pages/login";
-import NotFoundPage from "./pages/not-found";
-import userStorage from "./userStorage";
+import MainPage from "./pages/mainPage";
+import ProfilePage from "./pages/profilePage";
+import LoginPage from "./pages/loginPage";
+import NotFoundPage from "./pages/notFoundPage";
+import userStorage from "./store";
 
 const routes = () => {
-  const { get } = userStorage()
-  const user = get()
   return {
     "/": MainPage,
-    "/login": user.username ? MainPage : LoginPage,
-    "/profile": user.username ? ProfilePage : LoginPage
+    "/login": LoginPage,
+    "/profile": ProfilePage
   }
 }
 
@@ -19,12 +17,14 @@ const navigate = (path) => {
   render();
 }
 
-document.addEventListener("submit", (e) => {
+const root = document.getElementById("root")
+
+root.addEventListener("submit", (e) => {
   if (e.target.id === "login-form") {
     e.preventDefault();
     const userValue = document.getElementById('username')
     const data = { username: userValue.value, email: "", bio: "" }
-    userStorage().set(data)
+    userStorage.set(data)
     navigate("/");
     return;
   }
@@ -36,15 +36,15 @@ document.addEventListener("submit", (e) => {
       email: document.getElementById("email").value,
       bio: document.getElementById("bio").value,
     };
-    userStorage().set(userData)
+    userStorage.set(userData)
 
   }
 });
 
-document.addEventListener("click", (e) => {
+root.addEventListener("click", (e) => {
   if (e.target.id === "logout") {
     e.preventDefault();
-    localStorage.removeItem("user");
+    userStorage.clear()
     navigate("/login");
     return;
   }
@@ -60,10 +60,25 @@ document.addEventListener("click", (e) => {
 });
 
 const render = () => {
+  const { get } = userStorage
+  const user = get()
   const path = location.pathname;
+
+  if (user.username && path === "/login") {
+    navigate("/")
+    return
+  }
+
+  if (!user.username && path === "/profile") {
+    navigate("/login")
+    return
+  }
   const page = routes()[path] || NotFoundPage;
 
-  document.getElementById("root").innerHTML = page();
+  const root = document.getElementById("root");
+  if (!root) return;
+
+  root.innerHTML = page();
 }
 
 window.addEventListener("popstate", render);

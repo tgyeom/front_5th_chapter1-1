@@ -1,10 +1,10 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import userStorage from "../userStorage";
+import userStorage from "../store";
 
 const ProfilePage = () => {
-    const { get } = userStorage();
-    const user = get();
+    const { get } = userStorage
+    const { username, email, bio } = get();
 
     return `
     <div id="root">
@@ -21,7 +21,7 @@ const ProfilePage = () => {
                     type="text"
                     id="username"
                     name="username"
-                    value="${user.username || ""}"
+                    value="${username || ""}"
                     class="w-full p-2 border rounded"
                   />
                 </div>
@@ -31,7 +31,7 @@ const ProfilePage = () => {
                     type="email"
                     id="email"
                     name="email"
-                    value="${user.email || ""}"
+                    value="${email || ""}"
                     class="w-full p-2 border rounded"
                   />
                 </div>
@@ -42,7 +42,7 @@ const ProfilePage = () => {
                     name="bio"
                     rows="4"
                     class="w-full p-2 border rounded"
-                  >${user.bio || "자기소개입니다."}</textarea>
+                  >${bio || "자기소개입니다."}</textarea>
                 </div>
                 <button 
                   type="submit"
