@@ -1,7 +1,14 @@
 import userStorage from "../store";
 
 const headerHighlight = (type) => {
-  return location.pathname.replace("/", "") !== type ? "gray-600" : "blue-600 font-bold";
+  let path;
+  if (location.hash) {
+    path = location.hash.replace("#/", "")
+  } else {
+    path = location.pathname.replace("/", "")
+  }
+
+  return path === type ? "blue-600 font-bold" : "gray-600"
 };
 
 const headerItems = () => {

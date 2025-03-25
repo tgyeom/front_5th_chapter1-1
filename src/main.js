@@ -4,12 +4,10 @@ import LoginPage from "./pages/loginPage";
 import NotFoundPage from "./pages/notFoundPage";
 import userStorage from "./store";
 
-const routes = () => {
-  return {
-    "/": MainPage,
-    "/login": LoginPage,
-    "/profile": ProfilePage
-  }
+const routes = {
+  "/": MainPage,
+  "/login": LoginPage,
+  "/profile": ProfilePage
 }
 
 const navigate = (path) => {
@@ -62,7 +60,7 @@ root.addEventListener("click", (e) => {
 const render = () => {
   const { get } = userStorage
   const user = get()
-  const path = location.pathname;
+  const path = location.pathname
 
   if (user.username && path === "/login") {
     navigate("/")
@@ -73,7 +71,8 @@ const render = () => {
     navigate("/login")
     return
   }
-  const page = routes()[path] || NotFoundPage;
+
+  const page = routes[path] || NotFoundPage;
 
   const root = document.getElementById("root");
   if (!root) return;
@@ -82,5 +81,6 @@ const render = () => {
 }
 
 window.addEventListener("popstate", render);
+window.addEventListener("DOMContentLoaded", render)
 
 render();
