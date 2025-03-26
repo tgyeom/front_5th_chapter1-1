@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://tgyeom.github.io/font_5th_chapter1-1/",
+  "homepage": "https://tgyeom.github.io/front_5th_chapter1-1/",
   "scripts": {
     "dev": "vite",
     "dev:hash": "vite --open ./index.hash.html",
