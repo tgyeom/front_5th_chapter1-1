@@ -1,15 +1,27 @@
 import userStorage from "../store";
 
+const BASE_PATH = "/front_5th_chapter1-1";
+
 const headerHighlight = (type) => {
   let path;
+
   if (location.hash) {
-    path = location.hash.replace("#/", "")
+    path = location.hash.replace("#", "");
   } else {
-    path = location.pathname.replace("/", "")
+    path = location.pathname;
   }
 
-  return path.includes(type) ? "blue-600 font-bold" : "gray-600"
+  if (BASE_PATH && path.startsWith(BASE_PATH)) {
+    path = path.slice(BASE_PATH.length);
+  }
+
+  if (path === "") {
+    path = "/";
+  }
+
+  return path === `/${type}` ? "blue-600 font-bold" : "gray-600";
 };
+
 
 const headerItems = () => {
   const { get } = userStorage
