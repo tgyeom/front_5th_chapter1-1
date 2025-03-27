@@ -1,4 +1,4 @@
-export const formListeners = (root, navigate, userStorage) => {
+const formListeners = (root, navigate, userStorage) => {
     root.addEventListener("submit", (e) => {
         if (e.target.id === "login-form") {
             e.preventDefault();
@@ -17,11 +17,12 @@ export const formListeners = (root, navigate, userStorage) => {
                 bio: document.getElementById("bio").value,
             };
             userStorage.set(userData);
+            alert("프로필이 성공적으로 저장되었습니다.");
         }
     });
 };
 
-export const clickListeners = (root, navigate, userStorage) => {
+const clickListeners = (root, navigate, userStorage) => {
     root.addEventListener("click", (e) => {
         if (e.target.id === "logout") {
             e.preventDefault();
@@ -42,3 +43,5 @@ export const clickListeners = (root, navigate, userStorage) => {
         }
     });
 };
+
+export { clickListeners, formListeners }
