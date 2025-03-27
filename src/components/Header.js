@@ -8,7 +8,7 @@ const headerHighlight = (type) => {
     path = location.pathname.replace("/", "")
   }
 
-  return path === type ? "blue-600 font-bold" : "gray-600"
+  return path.includes(type) ? "blue-600 font-bold" : "gray-600"
 };
 
 const headerItems = () => {
