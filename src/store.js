@@ -1,4 +1,9 @@
-const STORAGE_NAME = "user"
+const STORAGE_NAME = "user";
+
+const state = {
+    user: JSON.parse(localStorage.getItem(STORAGE_NAME) || "{}"),
+    storage: {}, // 메모리 내 임시 저장소
+};
 
 const userStorage = {
     get() {
@@ -8,9 +13,15 @@ const userStorage = {
         localStorage.setItem(STORAGE_NAME, JSON.stringify(data));
     },
     clear() {
-        localStorage.clear();
+        localStorage.removeItem(STORAGE_NAME);
+        state.storage = {};
+    },
+    setInput(inputObj) {
+        state.storage = inputObj;
+    },
+    getInput() {
+        return state.storage;
     },
 };
 
-
-export default userStorage
+export default userStorage;

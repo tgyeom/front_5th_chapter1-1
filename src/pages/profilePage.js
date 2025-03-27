@@ -1,12 +1,14 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import userStorage from "../store";
+import userState from "../store";
 
 const ProfilePage = () => {
-    const { get } = userStorage
-    const { username, email, bio } = get();
+  const { username, email, bio } = {
+    ...userState.get(),
+    ...userState.getInput()
+  };
 
-    return `
+  return `
     <div id="root">
       <div class="bg-gray-100 min-h-screen flex justify-center">
         <div class="max-w-md w-full">
@@ -42,7 +44,7 @@ const ProfilePage = () => {
                     name="bio"
                     rows="4"
                     class="w-full p-2 border rounded"
-                  >${bio || "자기소개입니다."}</textarea>
+                  >${bio || ""}</textarea>
                 </div>
                 <button 
                   type="submit"

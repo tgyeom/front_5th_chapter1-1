@@ -22,6 +22,19 @@ const formListeners = (root, navigate, userStorage) => {
     });
 };
 
+const inputListeners = (root, userStorage) => {
+    root.addEventListener("input", (e) => {
+        if (["username", "email", "bio"].includes(e.target.id)) {
+            const tempData = {
+                username: document.getElementById("username")?.value,
+                email: document.getElementById("email")?.value,
+                bio: document.getElementById("bio")?.value,
+            };
+            userStorage.setInput(tempData);
+        }
+    });
+}
+
 const clickListeners = (root, navigate, userStorage) => {
     root.addEventListener("click", (e) => {
         if (e.target.id === "logout") {
@@ -44,4 +57,5 @@ const clickListeners = (root, navigate, userStorage) => {
     });
 };
 
-export { clickListeners, formListeners }
+
+export { clickListeners, formListeners, inputListeners }
