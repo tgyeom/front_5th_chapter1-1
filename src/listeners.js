@@ -45,6 +45,7 @@ const clickListeners = (root, navigate, userStorage) => {
         }
 
         if (e.target.id === "login") {
+            e.preventDefault();
             navigate("/login");
             return;
         }
